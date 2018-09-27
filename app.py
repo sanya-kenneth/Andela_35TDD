@@ -9,6 +9,7 @@ class User(object):
         self.email = email
         self.password = password
         self.gender = gender
+        self.status = False
 
         user_data =  {
                         'name': self.name,
@@ -16,15 +17,28 @@ class User(object):
                         'age': self.age,
                         'email': self.email,
                         'password':self.password,
-                        'gender':self.gender
+                        'gender':self.gender,
+                        'status': self.status
                     }
 
         users.append(user_data)
 
+    def login(self,email,pass_word):
+        for user_details in users:
+            if email == user_details['email'] and pass_word == user_details['password']:
+                user_details['status'] = True # Capture user login status
+                
+               
+               
+                        
+               
+               
+
 
 sanya = User()
 sanya.register("sanya","skimo",25,"sanyakenneth@gmail.com","ok","male")
-print(users)
+sanya.login("sanyakenneth@gmail.com","ok")
+# print(users)
 
     
 
