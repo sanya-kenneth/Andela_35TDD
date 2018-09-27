@@ -1,3 +1,6 @@
+from utilities import validate_username_name
+
+
 users = []
 
 class User(object):
@@ -10,8 +13,9 @@ class User(object):
         self.password = password
         self.gender = gender
         self.status = False
-
-        user_data =  {
+        is_valid_name = validate_username_name(self.name ,self.username)
+        if is_valid_name == True:
+            user_data =  {
                         'name': self.name,
                         'username': self.username,
                         'age': self.age,
@@ -19,14 +23,17 @@ class User(object):
                         'password':self.password,
                         'gender':self.gender,
                         'status': self.status
-                    }
+                        }
 
-        users.append(user_data)
+            users.append(user_data)
+            print(user_data)
 
+    
     def login(self,email,pass_word):
         for user_details in users:
             if email == user_details['email'] and pass_word == user_details['password']:
                 user_details['status'] = True # Capture user login status
+
                 
                
                
@@ -36,7 +43,8 @@ class User(object):
 
 
 sanya = User()
-sanya.register("sanya","skimo",25,"sanyakenneth@gmail.com","ok","male")
+sanya.register("sanya","Kenneth",25,"sanyakenneth@gmail.com","ok","male")
+# print(users)
 sanya.login("sanyakenneth@gmail.com","ok")
 # print(users)
 
