@@ -4,26 +4,24 @@ from validate_email import validate_email
 
 users = []
 class User(object):
-    def __init__(self,name,username,age,email,password,gender):
-        self.name = name
-        self.username = username
-        self.age = age
-        self.email = email
-        self.password = password
-        self.gender = gender
+    def __init__(self,*args,**kwargs):
+        self.name = args[0]
+        self.username = args[1]
+        self.age = args[2]
+        self.email = args[3]
+        self.password = args[4]
+        self.gender = args[5]
         self.status = False
 
     def register(self):
         is_valid_name = validate_username_name(self.name ,self.username)
         is_valid_email = validate_email(self.email)
         is_valid_password = validate_password(self.password)
-        if is_valid_password != True:
-            return "Password must contain a capital letter, a small letter, a number and a special character!"
+        if is_valid_password != True or is_valid_email != True:
+            return "Invalid email or Password!"
         elif len(self.password) <5:
             return "password too short"
-        if is_valid_email != True:
-            return "Invalid email!"
-        elif  type(self.age) != int or self.age < 0:
+        if  type(self.age) != int or self.age < 0:
             return "Age provided is not valid!"
         if is_valid_name == True:
             user_data =  {
@@ -55,14 +53,15 @@ class User(object):
         
     def change_email(self,email):
         is_valid_email = validate_email(email)
-        if is_valid_email != True:
-            return "Invalid email!"
-        for user_details in users:
-            if user_details['status'] == True: #check if user is loggedin
-                user_details['email'] = email
-                return "Your email was successfuly changed"
-            else:
-                return "You can't change email while logged out"
+        if is_valid_email == True:
+            for user_details in users:
+                if user_details['status'] == True: #check if user is loggedin
+                    user_details['email'] = email
+                    return "Your email was successfuly changed"
+                else:
+                    return "You can't change email while logged out"
+        else:
+            return "Invalid email"
 
     def change_password(self,password):
         is_valid_password = validate_password(password)
@@ -89,7 +88,7 @@ class User(object):
 
                 
                
-# me = User("sanya","Kenneth",24,"sanyakenneth@gmail.com","K1n.lll","male") 
+# me = User("sanya","Kenneth",24,"sanyakenneth@gmail.com","K9N.lLL","male") 
 # me.register()
 # print(users)
 # me.login("sanyakenneth@gmail.com","K1n.lll")
