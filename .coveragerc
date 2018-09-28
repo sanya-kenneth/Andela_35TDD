@@ -1,0 +1,9 @@
+[report]
+omit =
+    */__pycache__/*
+    */venv/*
+    */home/travis/virtualenv/*
+    */.vscode/*
+   */tests/*
+   */.pytest_cache/*
+   test_app.py
