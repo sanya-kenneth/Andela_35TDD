@@ -37,8 +37,6 @@ class User(object):
             users.append(user_data)
             return "Your account has been successfuly created"
        
-
-    
     def login(self,email,pass_word):
         self.email = email
         self.password = pass_word
@@ -52,9 +50,7 @@ class User(object):
             if self.email == user_details['email'] and self.password == user_details['password']:
                 user_details['status'] = True # Capture user login status
                 return "You are now loggedin"
-           
-
-
+        
     def change_email(self,email):
         self.email = email
         is_valid_email = validate_email(self.email)

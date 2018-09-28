@@ -11,7 +11,6 @@ def validate_username_name(name,username):
     else:
         return True 
 
-
 def validate_password(password):
     match = re.search('[A-Z]+',password) #search for capital letters
     match2 = re.search('[a-z]+',password) # search for small letters
