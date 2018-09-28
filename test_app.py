@@ -4,43 +4,49 @@ from app import User,users
 
 
 class TDDTestcase(unittest.TestCase):
+    def setUp(self):
+        self.user = User("sanya","Kenneth",24,"sanyakenneth@gmail.com","K1n.lll","male")
+        self.check_age_is_int = User("sanya","Kenneth","24","sanyakenneth@gmail.com","K1n.lll","male")
+        self.check_age_is_less_than_zero = User("sanya","Kenneth",-9,"sanyakenneth@gmail.com","K1n.lll","male")
+        self.check_email_is_valid = User("sanya","Kenneth",24,"sanyakennethgmail.com","K1n.lll","male")
+        self.check_password_short = User("sanya","Kenneth",24,"sanyakenneth@gmail.com","K1.l","male")
+        self.check_password_special_characters = User("sanya","Kenneth",24,"sanyakenneth@gmail.com","K1NinLLL","male")
+        
+
     def test_user_can_sign_up(self):
-        user = User()
-        register = user.register("sanya","Kenneth",25,"sanyakenneth@gmail.com","K1n.l","male")
+        register = self.user.register()
         self.assertEqual("Your account has been successfuly created",register)
-        user.empty_db()
+        self.user.empty_db()
         
     def test_user_can_login(self):
-        user = User()
-        user.register("sanya","skimo",24,"sanya@gmail.com","SK1mo@","male")
-        login = user.login("sanya@gmail.com","SK1mo@")
+        self.user.register()
+        login = self.user.login("sanyakenneth@gmail.com","K1n.lll")
         self.assertEqual("You are now loggedin",login)
+        self.user.empty_db()
     
     def test_user_can_change_email(self):
-        user = User()
-        user.register("sanya","Kenneth",25,"sanyakenneth@gmail.com","K1n.l","male")
-        user.login("sanyakenneth@gmail.com","K1n.l")
-        change_email = user.change_email("zen@gmail.com")
+        self.user.register()
+        self.user.login("sanyakenneth@gmail.com","K1n.lll")
+        change_email = self.user.change_email("zen@gmail.com")
         self.assertEqual("Your email was successfuly changed",change_email)
+        self.user.empty_db()
 
     def test_user_can_change_password(self):
-        user = User()
-        user.register("sanya","Kenneth",25,"sanyakenneth@gmail.com","K1n.l","male")
-        user.login("sanyakenneth@gmail.com","K1n.l")
-        change_password = user.change_password("Gh4|l")
+        self.user.register()
+        self.user.login("sanyakenneth@gmail.com","K1n.lll")
+        change_password = self.user.change_password("Gh4|l")
         self.assertEqual("your password was successfuly changed",change_password)
+        self.user.empty_db()
 
     def test_loggedin_user_can_view_their_info(self):
-        user = User()
-        user.register("sanya","Kenneth",25,"sanyakenneth@gmail.com","K1n.l","male")
-        user.login("sanyakenneth@gmail.com","K1n.l")
-        info = user.my_info()
+        self.user.register()
+        self.user.login("sanyakenneth@gmail.com","K1n.lll")
+        info = self.user.my_info()
         self.assertIsInstance(info,dict)
 
     def test_app_can_empty_db(self):
-        user = User()
-        user.register("sanya","Kenneth",25,"sanyakenneth@gmail.com","K1n.lll","male")
-        empty_db = user.empty_db()
+        self.user.register()
+        empty_db = self.user.empty_db()
         self.assertEqual("Database has been emptied",empty_db)
         self.assertEqual(users,[])
 
@@ -85,29 +91,24 @@ class TDDTestcase(unittest.TestCase):
         self.assertEqual(True,validateuserpassword)
 
     def test_signup_returns_error_if_age_is_not_of_type_int(self):
-        user = User()
-        register = user.register("sanya","Kenneth","24","sanyakenneth@gmail.com","K1n.lll","male")
+        register = self.check_age_is_int.register()
         self.assertEqual( "Age provided is not valid!",register)
 
     
     def test_signup_returns_error_if_age_is_less_than_zero(self):
-        user = User()
-        register = user.register("sanya","Kenneth",-1,"sanyakenneth@gmail.com","K1n.lll","male")
+        register = self.check_age_is_less_than_zero.register()
         self.assertEqual( "Age provided is not valid!",register)
 
     def test_signup_returns_error_if_email_is_invalid(self):
-        user = User()
-        register = user.register("sanya","Kenneth",25,"sanyakennethgmail.com","K1n.lll","male")
+        register = self.check_email_is_valid.register()
         self.assertEqual( "Invalid email!",register)
 
     def test_signup_returns_error_if_password_lacks_capital_letter_small_letter_a_digit_or_special_character(self):
-        user = User()
-        register = user.register("sanya","Kenneth",25,"sanyakennethgmail.com","K1nlll","male")
+        register = self.check_password_special_characters.register()
         self.assertEqual( "Password must contain a capital letter, a small letter, a number and a special character!",register)
 
     def test_signup_returns_error_if_password_is_short(self):
-        user = User()
-        register = user.register("sanya","Kenneth",25,"sanyakennethgmail.com","K1n.","male")
+        register = self.check_password_short.register()
         self.assertEqual( "password too short",register)
 
 

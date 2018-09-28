@@ -4,7 +4,7 @@ from validate_email import validate_email
 
 users = []
 class User(object):
-    def register(self,name,username,age,email,password,gender):
+    def __init__(self,name,username,age,email,password,gender):
         self.name = name
         self.username = username
         self.age = age
@@ -12,6 +12,8 @@ class User(object):
         self.password = password
         self.gender = gender
         self.status = False
+
+    def register(self):
         is_valid_name = validate_username_name(self.name ,self.username)
         is_valid_email = validate_email(self.email)
         is_valid_password = validate_password(self.password)
@@ -37,40 +39,38 @@ class User(object):
             users.append(user_data)
             return "Your account has been successfuly created"
        
-    def login(self,email,pass_word):
-        self.email = email
-        self.password = pass_word
-        is_valid_email = validate_email(self.email)
-        is_valid_password = validate_password(self.password)
+    def login(self,email,password):
+        is_valid_email = validate_email(email)
+        is_valid_password = validate_password(password)
         if is_valid_password != True:
             return "Password must contain a capital letter, a small letter, a number and a special character!"
         if is_valid_email != True:
             return "Invalid email!"
         for user_details in users:
-            if self.email == user_details['email'] and self.password == user_details['password']:
+            if email == user_details['email'] and password == user_details['password']:
                 user_details['status'] = True # Capture user login status
                 return "You are now loggedin"
+            else:
+                return "Failed to login"
         
     def change_email(self,email):
-        self.email = email
-        is_valid_email = validate_email(self.email)
+        is_valid_email = validate_email(email)
         if is_valid_email != True:
             return "Invalid email!"
         for user_details in users:
             if user_details['status'] == True: #check if user is loggedin
-                user_details['email'] = self.email
+                user_details['email'] = email
                 return "Your email was successfuly changed"
             else:
                 return "You can't change email while logged out"
 
-    def change_password(self,pass_word):
-        self.password = pass_word
-        is_valid_password = validate_password(self.password)
+    def change_password(self,password):
+        is_valid_password = validate_password(password)
         if is_valid_password != True:
             return "Password must contain a capital letter, a small letter, a number and a special character!"
         for user_details in users:
             if user_details['status'] == True: #check if user is loggedin
-                user_details['password'] = self.password
+                user_details['password'] = password
                 return "your password was successfuly changed"
             else:
                 return "You can't change password while logged out"
@@ -89,8 +89,15 @@ class User(object):
 
                 
                
-               
-                        
+# me = User("sanya","Kenneth",24,"sanyakenneth@gmail.com","K1n.lll","male") 
+# me.register()
+# print(users)
+# me.login("sanyakenneth@gmail.com","K1n.lll")
+# print(users)
+# me.change_email("jema@gmail.com")
+# print(users)
+# me.change_password("S2l@oo")
+# print(users)
                
                
 
