@@ -16,8 +16,9 @@ class User(object):
         is_valid_email = validate_email(self.email)
         is_valid_password = validate_password(self.password)
         if is_valid_password != True:
-            print("Check your password")
             return "Password must contain a capital letter, a small letter, a number and a special character!"
+        elif len(self.password) <4:
+            return "password too short"
         if is_valid_email != True:
             return "Invalid email!"
         elif age <= 0 or type(age) != int:
@@ -34,7 +35,7 @@ class User(object):
                         }
 
             users.append(user_data)
-            print(user_data)
+            return "Your account has been successfuly created"
        
 
     
@@ -43,17 +44,43 @@ class User(object):
             if email == user_details['email'] and pass_word == user_details['password']:
                 user_details['status'] = True # Capture user login status
 
+
+    def change_email(self,email):
+        self.email = email
+        is_valid_email = validate_email(self.email)
+        if is_valid_email != True:
+            return "Invalid email!"
+        for user_details in users:
+            if user_details['status'] == True: #check if user is loggedin
+                user_details['email'] = self.email
+                return "Your email was successfuly changed"
+            else:
+                return "You can't change email while logged out"
+
+    def change_password(self,pass_word):
+        self.password = pass_word
+        is_valid_password = validate_password(self.password)
+        if is_valid_password != True:
+            return "Password must contain a capital letter, a small letter, a number and a special character!"
+        for user_details in users:
+            if user_details['status'] == True: #check if user is loggedin
+                user_details['password'] = self.password
+                return "your password was successfuly changed"
+            else:
+                return "You can't change password while logged out"
+
+    def my_info(self):
+        for user_details in users:
+            if user_details['status'] == True:
+                print(user_details)
+
+
                 
                
                
                         
                
                
-
-
-sanya = User()
-sanya.register("sanya","Kenneth",25,"sanyakenneth@gmail.com","OK1now.","male")
-sanya.login("sanyakenneth@gmail.com","k")
 
     
 
