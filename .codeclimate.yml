@@ -1,1 +1,2 @@
-test_app.py
+exclude_patterns:
+ - "test_app.py"
