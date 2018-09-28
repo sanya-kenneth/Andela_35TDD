@@ -101,11 +101,11 @@ class TDDTestcase(unittest.TestCase):
 
     def test_signup_returns_error_if_email_is_invalid(self):
         register = self.check_email_is_valid.register()
-        self.assertEqual( "Invalid email!",register)
+        self.assertEqual( "Invalid email or Password!",register)
 
     def test_signup_returns_error_if_password_lacks_capital_letter_small_letter_a_digit_or_special_character(self):
         register = self.check_password_special_characters.register()
-        self.assertEqual( "Password must contain a capital letter, a small letter, a number and a special character!",register)
+        self.assertEqual( "Invalid email or Password!",register)
 
     def test_signup_returns_error_if_password_is_short(self):
         register = self.check_password_short.register()
