@@ -43,6 +43,7 @@ class User(object):
         for user_details in users:
             if email == user_details['email'] and pass_word == user_details['password']:
                 user_details['status'] = True # Capture user login status
+                return "You are now loggedin as {}".format(user_details['username'])
 
 
     def change_email(self,email):
@@ -73,7 +74,11 @@ class User(object):
         for user_details in users:
             if user_details['status'] == True:
                 print(user_details)
+            else:
+                return "Nothing to show"
 
+    def empty_db(self):
+        users.clear()
 
                 
                
@@ -81,6 +86,17 @@ class User(object):
                         
                
                
+
+
+# sanya = User()
+# sanya.register("sanya","Kenneth",25,"sanyakenneth@gmail.com","K1n.","male")
+
+
+# sanya.login("sanyakenneth@gmail.com","K1n.")
+
+# sanya.change_password("S2l")
+# print(users)
+# sanya.my_info()
 
     
 
