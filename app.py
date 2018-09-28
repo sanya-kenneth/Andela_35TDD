@@ -87,16 +87,7 @@ class User(object):
         return "Database has been emptied"
 
                 
-               
-# me = User("sanya","Kenneth",24,"sanyakenneth@gmail.com","K9N.lLL","male") 
-# me.register()
-# print(users)
-# me.login("sanyakenneth@gmail.com","K1n.lll")
-# print(users)
-# me.change_email("jema@gmail.com")
-# print(users)
-# me.change_password("S2l@oo")
-# print(users)
+
                
                
 
