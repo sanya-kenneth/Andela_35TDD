@@ -54,9 +54,9 @@ class User(object):
     def change_email(self,email):
         is_valid_email = validate_email(email)
         if is_valid_email == True:
-            for user_details in users:
-                if user_details['status'] == True: #check if user is loggedin
-                    user_details['email'] = email
+            for data in users:
+                if data['status'] == True: 
+                    data['email'] = email
                     return "Your email was successfuly changed"
                 else:
                     return "You can't change email while logged out"
