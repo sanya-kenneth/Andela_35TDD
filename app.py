@@ -14,16 +14,13 @@ class User(object):
         self.status = False
 
     def register(self):
-        is_valid_name = validate_username_name(self.name ,self.username)
-        is_valid_email = validate_email(self.email)
-        is_valid_password = validate_password(self.password)
-        if is_valid_password != True or is_valid_email != True:
+        if validate_password(self.password) != True or validate_email(self.email) != True:
             return "Invalid email or Password!"
         elif len(self.password) <5:
             return "password too short"
         if  type(self.age) != int or self.age < 0:
             return "Age provided is not valid!"
-        if is_valid_name == True:
+        if validate_username_name(self.name ,self.username) == True:
             user_data =  {
                         'name': self.name,
                         'username': self.username,
@@ -38,11 +35,9 @@ class User(object):
             return "Your account has been successfuly created"
        
     def login(self,email,password):
-        is_valid_email = validate_email(email)
-        is_valid_password = validate_password(password)
-        if is_valid_password != True:
+        if validate_password(password) != True:
             return "Password must contain a capital letter, a small letter, a number and a special character!"
-        if is_valid_email != True:
+        if  validate_email(email) != True:
             return "Invalid email!"
         for user_details in users:
             if email == user_details['email'] and password == user_details['password']:
@@ -51,18 +46,16 @@ class User(object):
             else:
                 return "Failed to login"
         
-    def change_email(self,email):
-        is_valid_email = validate_email(email)
-        if is_valid_email == True:
-            for data in users:
-                if data['status'] == True: 
-                    data['email'] = email
-                    return "Your email was successfuly changed"
-                else:
-                    return "You can't change email while logged out"
-        else:
-            return "Invalid email"
-
+    def change_email(self,email): 
+        if not validate_email(email):
+             return "Invalid email"
+        for data in users:
+            if data['status'] == True: 
+                data['email'] = email
+                return "Your email was successfuly changed"
+            else:
+                return "You can't change email while logged out"
+        
     def change_password(self,password):
         is_valid_password = validate_password(password)
         if not is_valid_password:
