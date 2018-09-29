@@ -65,14 +65,15 @@ class User(object):
 
     def change_password(self,password):
         is_valid_password = validate_password(password)
-        if is_valid_password != True:
+        if is_valid_password == True:
+            for user_details in users:
+                if user_details['status'] == True: #check if user is loggedin
+                    user_details['password'] = password
+                    return "your password was successfuly changed"
+                else:
+                    return "You can't change password while logged out"
+        else:
             return "Password must contain a capital letter, a small letter, a number and a special character!"
-        for user_details in users:
-            if user_details['status'] == True: #check if user is loggedin
-                user_details['password'] = password
-                return "your password was successfuly changed"
-            else:
-                return "You can't change password while logged out"
 
     def my_info(self):
         for user_details in users:
