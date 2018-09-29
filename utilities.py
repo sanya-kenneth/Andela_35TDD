@@ -2,10 +2,8 @@ import re
 
 
 def validate_username_name(name,username):
-    if username == "" or name == "": # check if username or name is empty
-        return "Username or Name can not be empty"
-    elif len(username)<4: # check if the the length of username is lessthan 4
-        return "Username must be atleast 4 characters"
+    if username == "" or name == "" or len(username)<4: # check if username or name is valid
+        return "Username or Name is invalid"
     elif (" " in username) == True or (" " in name) == True: #check for space in username provided
         return "Spaces are not allowed"
     else:

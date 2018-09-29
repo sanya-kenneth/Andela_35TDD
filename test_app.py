@@ -52,13 +52,13 @@ class TDDTestcase(unittest.TestCase):
 
     def test_returns_error_if_user_inputs_an_empty_name_or_username_on_signup(self):
         validateusername_name = validate_username_name("","sanya")
-        self.assertEqual("Username or Name can not be empty",validateusername_name)
+        self.assertEqual("Username or Name is invalid",validateusername_name)
         validateusername_name = validate_username_name("sanya","")
-        self.assertEqual("Username or Name can not be empty",validateusername_name)
+        self.assertEqual("Username or Name is invalid",validateusername_name)
 
     def test_returns_error_if_user_inputs_a_short_username_on_signup(self):
         validateusername_name = validate_username_name("sanya","s")
-        self.assertEqual("Username must be atleast 4 characters",validateusername_name)
+        self.assertEqual("Username or Name is invalid",validateusername_name)
 
     def test_returns_error_if_user_inputs_a_space_witnin_name_or_username_on_signup(self):
         validateusername_name = validate_username_name("sa  nya","skimogreen")
